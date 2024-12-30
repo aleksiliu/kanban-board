@@ -59,7 +59,7 @@
       />
     </div>
 
-    <TaskBacklogSection
+    <BacklogSection
       :tasks="backlogTasks"
       @drag-start="handleDragStart"
       @drop="handleDrop"
