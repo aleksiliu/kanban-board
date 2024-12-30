@@ -1,9 +1,21 @@
 <script setup lang="ts">
+  import { useLocalStorage } from '@/composables/useLocalStorage'
   import { TASK_STATUSES } from '@/constants'
   import { mockTasks } from '@/mocks/mockTasks'
   import type { Task, TaskStatus } from '@/types'
 
-  const tasks = ref<Task[]>(mockTasks)
+  const { saveToStorage, loadFromStorage } = useLocalStorage()
+
+  const tasks = ref<Task[]>(loadFromStorage())
+
+  watch(
+    tasks,
+    (newTasks) => {
+      saveToStorage(newTasks)
+    },
+    { deep: true }
+  )
+
   const draggedTaskId = ref<number | null>(null)
   const isDragging = ref(false)
 
