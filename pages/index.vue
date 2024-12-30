@@ -168,25 +168,36 @@
         @dragover="handleDragOver"
         @drop="handleDrop('backlog')"
       >
-        <div
-          v-for="task in backlogTasks"
-          :key="task.id"
-          class="cursor-move rounded-lg bg-gray-800 p-4"
-          draggable="true"
-          @dragstart="handleDragStart(task.id)"
-        >
-          <div class="flex items-center justify-between">
-            <h3 class="font-medium">{{ task.title }}</h3>
-            <div
-              v-if="task.dueDate"
-              class="text-sm text-gray-400"
-            >
-              {{ formatDate(task.dueDate) }}
+        <template v-if="backlogTasks.length">
+          <div
+            v-for="task in backlogTasks"
+            :key="task.id"
+            class="cursor-move rounded-lg bg-gray-800 p-4"
+            draggable="true"
+            @dragstart="handleDragStart(task.id)"
+          >
+            <div class="flex items-center justify-between">
+              <h3 class="font-medium">{{ task.title }}</h3>
+              <div
+                v-if="task.dueDate"
+                class="text-sm text-gray-400"
+              >
+                {{ formatDate(task.dueDate) }}
+              </div>
             </div>
+            <p class="mt-2 text-sm text-gray-400">{{ task.description }}</p>
+            <div :class="[getPriorityColor(task.priority), 'mt-3 h-1 w-2 rounded']" />
           </div>
-          <p class="mt-2 text-sm text-gray-400">{{ task.description }}</p>
-          <div :class="[getPriorityColor(task.priority), 'mt-3 h-1 w-2 rounded']" />
-        </div>
+        </template>
+        <template v-else>
+          <div
+            class="rounded-lg border-2 border-dashed border-gray-700 p-8 text-center"
+            @dragover="handleDragOver"
+            @drop="handleDrop('backlog')"
+          >
+            <p class="text-gray-500">Drag tasks here to add them to the backlog</p>
+          </div>
+        </template>
       </div>
     </div>
   </div>
