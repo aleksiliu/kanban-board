@@ -14,14 +14,34 @@
   const doneTasks = computed(() => tasks.value.filter((task) => task.status === 'done'))
   const backlogTasks = computed(() => tasks.value.filter((task) => task.status === 'backlog'))
 
+  watch(
+    tasks,
+    (newTasks) => {
+      console.log('Tasks updated:', newTasks)
+    },
+    { deep: true }
+  )
+
+  watch(draggedTaskId, (newId) => {
+    console.log('Dragged task ID:', newId)
+  })
+
+  watch(isDragging, (dragging) => {
+    console.log('Dragging state:', dragging)
+  })
+
   const updateTaskStatus = (taskId: number, newStatus: TaskStatus) => {
+    console.log('Updating task status:', { taskId, newStatus })
     const task = tasks.value.find((t) => t.id === taskId)
     if (task) {
+      const oldStatus = task.status
       task.status = newStatus
+      console.log('Task updated:', { taskId, oldStatus, newStatus })
     }
   }
 
   const handleDragStart = (taskId: number) => {
+    console.log('Drag started:', taskId)
     draggedTaskId.value = taskId
     isDragging.value = true
   }
@@ -31,9 +51,12 @@
   }
 
   const handleDrop = (newStatus: TaskStatus) => {
+    console.log('Drop event:', { draggedTaskId: draggedTaskId.value, newStatus })
     if (draggedTaskId.value) {
       updateTaskStatus(draggedTaskId.value, newStatus)
       draggedTaskId.value = null
+      isDragging.value = false
+      console.log('Drop completed')
     }
   }
 </script>
