@@ -71,7 +71,6 @@
     <div class="mt-8 grid grid-cols-3 gap-4">
       <div
         class="bg-card rounded-lg p-4 transition-colors duration-200"
-        :class="{ 'bg-card-hover': isDragging }"
         @dragover="handleDragOver"
         @drop="handleDrop('todo')"
       >
