@@ -9,13 +9,3 @@ export interface Task {
   dueDate?: Date
   assignee?: string
 }
-
-export const TASK_STATUSES = {
-  'To Do': 'todo',
-  'In Progress': 'in-progress',
-  Done: 'done'
-} as const
-
-export type ColumnConfig = {
-  [K in keyof typeof TASK_STATUSES]: TaskStatus
-}

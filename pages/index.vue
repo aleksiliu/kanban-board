@@ -1,7 +1,7 @@
 <script setup lang="ts">
+  import { TASK_STATUSES } from '@/constants'
   import { mockTasks } from '@/mocks/mockTasks'
   import type { Task, TaskStatus } from '@/types'
-  import { TASK_STATUSES } from '@/types'
 
   const tasks = ref<Task[]>(mockTasks)
   const draggedTaskId = ref<number | null>(null)
