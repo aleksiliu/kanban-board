@@ -69,7 +69,6 @@
     </header>
 
     <div class="mt-8 grid grid-cols-3 gap-4">
-      <!-- Todo Column -->
       <div
         class="rounded-lg bg-gray-800 p-4 transition-colors duration-200"
         :class="{ 'bg-gray-700': isDragging }"
@@ -101,7 +100,6 @@
         </div>
       </div>
 
-      <!-- In Progress Column -->
       <div
         class="rounded-lg bg-gray-800 p-4"
         @dragover="handleDragOver"
@@ -132,7 +130,6 @@
         </div>
       </div>
 
-      <!-- Done Column -->
       <div
         class="rounded-lg bg-gray-800 p-4"
         @dragover="handleDragOver"
@@ -164,7 +161,6 @@
       </div>
     </div>
 
-    <!-- Backlog Section -->
     <div class="mt-8">
       <h2 class="text-xl font-semibold">Backlog</h2>
       <div
