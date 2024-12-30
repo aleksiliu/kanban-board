@@ -1,62 +1,41 @@
 <script setup lang="ts">
   import { mockTasks } from '@/mocks/mockTasks'
   import type { Task, TaskStatus } from '@/types'
-  import { formatDate, getPriorityColor } from '@/utils'
+  import { TASK_STATUSES } from '@/types'
 
   const tasks = ref<Task[]>(mockTasks)
   const draggedTaskId = ref<number | null>(null)
   const isDragging = ref(false)
 
-  const todoTasks = computed(() => tasks.value.filter((task) => task.status === 'todo'))
-  const inProgressTasks = computed(() =>
-    tasks.value.filter((task) => task.status === 'in-progress')
-  )
-  const doneTasks = computed(() => tasks.value.filter((task) => task.status === 'done'))
+  const columns: typeof TASK_STATUSES = TASK_STATUSES
+
   const backlogTasks = computed(() => tasks.value.filter((task) => task.status === 'backlog'))
 
-  watch(
-    tasks,
-    (newTasks) => {
-      console.log('Tasks updated:', newTasks)
-    },
-    { deep: true }
-  )
-
-  watch(draggedTaskId, (newId) => {
-    console.log('Dragged task ID:', newId)
-  })
-
-  watch(isDragging, (dragging) => {
-    console.log('Dragging state:', dragging)
-  })
-
   const updateTaskStatus = (taskId: number, newStatus: TaskStatus) => {
-    console.log('Updating task status:', { taskId, newStatus })
     const task = tasks.value.find((t) => t.id === taskId)
     if (task) {
-      const oldStatus = task.status
+      console.log(`Updating task ${taskId} status from ${task.status} to ${newStatus}`)
       task.status = newStatus
-      console.log('Task updated:', { taskId, oldStatus, newStatus })
+      console.log('Updated tasks:', tasks.value)
+    } else {
+      console.warn(`Task ${taskId} not found`)
     }
   }
 
   const handleDragStart = (taskId: number) => {
-    console.log('Drag started:', taskId)
+    console.log(`Started dragging task ${taskId}`)
     draggedTaskId.value = taskId
     isDragging.value = true
   }
 
-  const handleDragOver = (e: DragEvent) => {
-    e.preventDefault()
-  }
-
   const handleDrop = (newStatus: TaskStatus) => {
-    console.log('Drop event:', { draggedTaskId: draggedTaskId.value, newStatus })
+    console.log(`Dropping task into ${newStatus} column`)
     if (draggedTaskId.value) {
       updateTaskStatus(draggedTaskId.value, newStatus)
       draggedTaskId.value = null
       isDragging.value = false
-      console.log('Drop completed')
+    } else {
+      console.warn('No task being dragged')
     }
   }
 </script>
@@ -69,135 +48,21 @@
     </header>
 
     <div class="mt-8 grid grid-cols-3 gap-4">
-      <div
-        class="bg-card rounded-lg p-4 transition-colors duration-200"
-        @dragover="handleDragOver"
-        @drop="handleDrop('todo')"
-      >
-        <div class="mb-4 flex items-center justify-between">
-          <h2 class="font-semibold">To Do {{ todoTasks.length }}</h2>
-          <button class="text-secondary hover:text-primary">+</button>
-        </div>
-        <div class="space-y-3">
-          <div
-            v-for="task in todoTasks"
-            :key="task.id"
-            class="bg-card-hover hover:bg-card-active cursor-move rounded-lg p-4"
-            draggable="true"
-            @dragstart="handleDragStart(task.id)"
-          >
-            <div :class="[getPriorityColor(task.priority), 'mb-2 h-1 rounded']" />
-            <h3 class="font-medium">{{ task.title }}</h3>
-            <p class="text-secondary mt-2 text-sm">{{ task.description }}</p>
-            <div
-              v-if="task.dueDate"
-              class="text-secondary mt-3 text-xs"
-            >
-              {{ formatDate(task.dueDate) }}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div
-        class="bg-card rounded-lg p-4"
-        @dragover="handleDragOver"
-        @drop="handleDrop('in-progress')"
-      >
-        <div class="mb-4 flex items-center justify-between">
-          <h2 class="font-semibold">In Progress {{ inProgressTasks.length }}</h2>
-          <button class="text-secondary hover:text-primary">+</button>
-        </div>
-        <div class="space-y-3">
-          <div
-            v-for="task in inProgressTasks"
-            :key="task.id"
-            class="bg-card-hover hover:bg-card-active cursor-move rounded-lg p-4"
-            draggable="true"
-            @dragstart="handleDragStart(task.id)"
-          >
-            <div :class="[getPriorityColor(task.priority), 'mb-2 h-1 rounded']" />
-            <h3 class="font-medium">{{ task.title }}</h3>
-            <p class="text-secondary mt-2 text-sm">{{ task.description }}</p>
-            <div
-              v-if="task.dueDate"
-              class="text-secondary mt-3 text-xs"
-            >
-              {{ formatDate(task.dueDate) }}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div
-        class="bg-card rounded-lg p-4"
-        @dragover="handleDragOver"
-        @drop="handleDrop('done')"
-      >
-        <div class="mb-4 flex items-center justify-between">
-          <h2 class="font-semibold">Done {{ doneTasks.length }}</h2>
-          <button class="text-secondary hover:text-primary">+</button>
-        </div>
-        <div class="space-y-3">
-          <div
-            v-for="task in doneTasks"
-            :key="task.id"
-            class="bg-card-hover hover:bg-card-active cursor-move rounded-lg p-4"
-            draggable="true"
-            @dragstart="handleDragStart(task.id)"
-          >
-            <div :class="[getPriorityColor(task.priority), 'mb-2 h-1 rounded']" />
-            <h3 class="font-medium">{{ task.title }}</h3>
-            <p class="text-secondary mt-2 text-sm">{{ task.description }}</p>
-            <div
-              v-if="task.dueDate"
-              class="text-secondary mt-3 text-xs"
-            >
-              {{ formatDate(task.dueDate) }}
-            </div>
-          </div>
-        </div>
-      </div>
+      <TaskColumn
+        v-for="(status, title) in columns"
+        :key="title"
+        :title="title"
+        :status="status"
+        :tasks="tasks.filter((task) => task.status === status)"
+        @drag-start="handleDragStart"
+        @drop="handleDrop"
+      />
     </div>
 
-    <div class="mt-8">
-      <h2 class="text-xl font-semibold">Backlog</h2>
-      <div
-        class="mt-4 space-y-2"
-        @dragover="handleDragOver"
-        @drop="handleDrop('backlog')"
-      >
-        <template v-if="backlogTasks.length">
-          <div
-            v-for="task in backlogTasks"
-            :key="task.id"
-            class="bg-card hover:bg-card-hover cursor-move rounded-lg p-4"
-            draggable="true"
-            @dragstart="handleDragStart(task.id)"
-          >
-            <div class="flex items-center justify-between">
-              <h3 class="font-medium">{{ task.title }}</h3>
-              <div
-                v-if="task.dueDate"
-                class="text-secondary text-sm"
-              >
-                {{ formatDate(task.dueDate) }}
-              </div>
-            </div>
-            <p class="text-secondary mt-2 text-sm">{{ task.description }}</p>
-            <div :class="[getPriorityColor(task.priority), 'mt-3 h-1 w-2 rounded']" />
-          </div>
-        </template>
-        <template v-else>
-          <div
-            class="border-card-hover rounded-lg border-2 border-dashed p-8 text-center"
-            @dragover="handleDragOver"
-            @drop="handleDrop('backlog')"
-          >
-            <p class="text-secondary">Drag tasks here to add them to the backlog</p>
-          </div>
-        </template>
-      </div>
-    </div>
+    <TaskBacklogSection
+      :tasks="backlogTasks"
+      @drag-start="handleDragStart"
+      @drop="handleDrop"
+    />
   </div>
 </template>
