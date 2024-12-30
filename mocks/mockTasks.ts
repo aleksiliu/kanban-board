@@ -3,67 +3,65 @@ import type { Task } from '@/types'
 export const mockTasks: Task[] = [
   {
     id: 1,
-    title: 'Grocery Shopping',
-    description: 'Get weekly groceries from Walmart',
+    title: 'Design System Setup',
+    description: 'Set up Tailwind CSS with custom HSL color system and component library',
     status: 'todo',
     priority: 'high',
     dueDate: new Date('2024-03-20')
   },
   {
     id: 2,
-    title: 'Gym Workout',
-    description: 'Complete 45min cardio session',
+    title: 'Authentication Flow',
+    description: 'Implement user authentication with OAuth and session management',
     status: 'in-progress',
-    priority: 'medium'
+    priority: 'high',
+    dueDate: new Date('2024-03-22')
   },
   {
     id: 3,
-    title: 'Pay Bills',
-    description: 'Pay electricity and water bills',
+    title: 'Dark Mode Implementation',
+    description: 'Add dark mode support using CSS variables and Tailwind',
     status: 'done',
-    priority: 'high',
+    priority: 'medium',
     dueDate: new Date('2024-03-15')
   },
   {
     id: 4,
-    title: 'Client Meeting',
-    description: 'Prepare presentation for client review',
+    title: 'API Integration',
+    description: 'Connect frontend with backend REST APIs using Nuxt composables',
     status: 'todo',
     priority: 'high',
-    dueDate: new Date('2024-03-21')
+    dueDate: new Date('2024-03-25')
   },
   {
     id: 5,
-    title: 'Code Review',
-    description: 'Review pull requests for frontend features',
+    title: 'Performance Optimization',
+    description: 'Optimize bundle size and implement lazy loading for components',
     status: 'in-progress',
     priority: 'medium'
   },
   {
     id: 6,
-    title: 'Implement user authentication',
-    description:
-      'Add user authentication to the application using Supabase Auth. This will allow users to create accounts and manage their boards securely.',
+    title: 'Component Library',
+    description: 'Create reusable UI components with Shadcn Vue and Radix Vue',
     status: 'backlog',
     priority: 'high',
-    dueDate: new Date('2024-02-14')
+    dueDate: new Date('2024-04-01')
   },
   {
     id: 7,
-    title: 'Add dark mode support',
-    description:
-      'Extend the existing dark mode support to the calendar view and timeline view components. Ensure consistent styling with the rest of the application.',
+    title: 'State Management',
+    description: 'Set up Pinia stores with TypeScript for global state management',
     status: 'backlog',
     priority: 'medium',
-    dueDate: new Date('2024-02-08')
+    dueDate: new Date('2024-04-05')
   },
   {
     id: 8,
-    title: 'Create unit tests for date utility functions',
-    description:
-      'Write unit tests to ensure the correctness of the date utility functions in date-utils.ts. Aim for at least 90% code coverage.',
+    title: 'Unit Testing Setup',
+    description: 'Configure Vitest and implement tests for critical components',
     status: 'backlog',
     priority: 'low',
-    dueDate: new Date('2024-02-29')
+    dueDate: new Date('2024-04-10')
   }
 ]
