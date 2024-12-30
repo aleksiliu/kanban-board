@@ -1,9 +1,9 @@
 <script setup lang="ts">
   import { mockTasks } from '@/mocks/mockTasks'
-  import type { TaskStatus } from '@/types'
+  import type { Task, TaskStatus } from '@/types'
   import { formatDate, getPriorityColor } from '@/utils'
 
-  const tasks = ref(mockTasks)
+  const tasks = ref<Task[]>(mockTasks)
   const draggedTaskId = ref<number | null>(null)
   const isDragging = ref(false)
 
