@@ -53,13 +53,17 @@
 </script>
 
 <template>
-  <div class="bg-background text-primary min-h-screen p-8">
+  <div class="bg-background text-primary min-h-screen p-4 sm:p-8">
     <header class="flex items-center justify-between">
-      <h1 class="text-2xl font-bold">My Project</h1>
-      <button class="bg-card-hover hover:bg-card-active rounded px-4 py-2">Create</button>
+      <h1 class="text-xl font-bold sm:text-2xl">My Project</h1>
+      <button
+        class="bg-card-hover hover:bg-card-active rounded px-3 py-1.5 text-sm sm:px-4 sm:py-2 sm:text-base"
+      >
+        Create
+      </button>
     </header>
 
-    <div class="mt-8 grid grid-cols-3 gap-4">
+    <div class="mt-4 flex flex-col gap-4 sm:mt-8 sm:grid sm:grid-cols-2 lg:grid-cols-3">
       <TaskColumn
         v-for="(status, title) in columns"
         :key="title"
@@ -71,10 +75,12 @@
       />
     </div>
 
-    <BacklogSection
-      :tasks="backlogTasks"
-      @drag-start="handleDragStart"
-      @drop="handleDrop"
-    />
+    <div class="mt-4 sm:mt-8">
+      <BacklogSection
+        :tasks="backlogTasks"
+        @drag-start="handleDragStart"
+        @drop="handleDrop"
+      />
+    </div>
   </div>
 </template>

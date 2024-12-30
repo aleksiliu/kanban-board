@@ -22,15 +22,15 @@
 
 <template>
   <div
-    class="bg-card rounded-lg p-4"
+    class="bg-card rounded-lg p-3 sm:p-4"
     @dragover="handleDragOver"
     @drop="emit('drop', status)"
   >
-    <div class="mb-4 flex items-center justify-between">
-      <h2 class="font-semibold">{{ title }} {{ tasks.length }}</h2>
-      <button class="text-secondary hover:text-primary">+</button>
+    <div class="mb-3 flex items-center justify-between sm:mb-4">
+      <h2 class="text-sm font-semibold sm:text-base">{{ title }} {{ tasks.length }}</h2>
+      <button class="text-secondary hover:text-primary text-sm sm:text-base">+</button>
     </div>
-    <div class="space-y-3">
+    <div class="space-y-2 sm:space-y-3">
       <TaskCard
         v-for="task in tasks"
         :key="task.id"
