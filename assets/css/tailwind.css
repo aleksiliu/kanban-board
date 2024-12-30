@@ -4,12 +4,19 @@
 
 @layer base {
   :root {
-    --hue: 250;
-    --saturation: 20%;
+    /* Base theme colors in HSL */
+    --color-background: 250 20% 10%;
+    --color-card: 250 20% 15%;
+    --color-card-hover: 250 20% 20%;
+    --color-card-active: 250 20% 25%;
 
-    --color-background: var(--hue) var(--saturation) 10%;
-    --color-card: var(--hue) var(--saturation) 15%;
-    --color-card-hover: var(--hue) var(--saturation) 20%;
-    --color-card-active: var(--hue) var(--saturation) 25%;
+    /* Text colors in HSL */
+    --color-primary: 0 0% 100%;
+    --color-secondary: 217 19% 65%;
+
+    /* Priority colors in HSL */
+    --color-priority-high: 0 84% 60%;
+    --color-priority-medium: 43 96% 48%;
+    --color-priority-low: 217 91% 60%;
   }
 }

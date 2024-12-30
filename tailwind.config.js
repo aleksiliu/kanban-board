@@ -12,19 +12,19 @@ export default {
     extend: {
       colors: {
         // Base theme colors
-        background: 'hsl(var(--color-background))',
-        card: 'hsl(var(--color-card))',
-        'card-hover': 'hsl(var(--color-card-hover))',
-        'card-active': 'hsl(var(--color-card-active))',
+        background: 'hsl(var(--color-background) / <alpha-value>)',
+        card: 'hsl(var(--color-card) / <alpha-value>)',
+        'card-hover': 'hsl(var(--color-card-hover) / <alpha-value>)',
+        'card-active': 'hsl(var(--color-card-active) / <alpha-value>)',
 
         // Text colors
-        primary: '#ffffff',
-        secondary: '#94a3b8',
+        primary: 'hsl(var(--color-primary) / <alpha-value>)',
+        secondary: 'hsl(var(--color-secondary) / <alpha-value>)',
 
         // Priority colors
-        'priority-high': '#ef4444', // red
-        'priority-medium': '#eab308', // yellow
-        'priority-low': '#3b82f6' // blue
+        'priority-high': 'hsl(var(--color-priority-high) / <alpha-value>)',
+        'priority-medium': 'hsl(var(--color-priority-medium) / <alpha-value>)',
+        'priority-low': 'hsl(var(--color-priority-low) / <alpha-value>)'
       }
     }
   },
