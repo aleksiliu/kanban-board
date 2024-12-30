@@ -5,12 +5,12 @@ export const formatDate = (date: Date) => {
 export const getPriorityColor = (priority?: string) => {
   switch (priority) {
     case 'high':
-      return 'bg-red-500'
+      return 'bg-priority-high'
     case 'medium':
-      return 'bg-yellow-500'
+      return 'bg-priority-medium'
     case 'low':
-      return 'bg-blue-500'
+      return 'bg-priority-low'
     default:
-      return 'bg-gray-500'
+      return 'bg-secondary'
   }
 }

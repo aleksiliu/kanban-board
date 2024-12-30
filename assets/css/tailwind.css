@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --hue: 250;
+    --saturation: 20%;
+
+    --color-background: var(--hue) var(--saturation) 10%;
+    --color-card: var(--hue) var(--saturation) 15%;
+    --color-card-hover: var(--hue) var(--saturation) 20%;
+    --color-card-active: var(--hue) var(--saturation) 25%;
+  }
+}
