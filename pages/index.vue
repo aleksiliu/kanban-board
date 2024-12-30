@@ -1,27 +1,11 @@
 <script setup lang="ts">
   import { mockTasks } from '@/mocks/mockTasks'
+  import { formatDate, getPriorityColor } from '@/utils'
 
   const todoTasks = computed(() => mockTasks.filter((task) => task.status === 'todo'))
   const inProgressTasks = computed(() => mockTasks.filter((task) => task.status === 'in-progress'))
   const doneTasks = computed(() => mockTasks.filter((task) => task.status === 'done'))
   const backlogTasks = computed(() => mockTasks.filter((task) => task.status === 'backlog'))
-
-  const formatDate = (date: Date) => {
-    return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' }).format(date)
-  }
-
-  const getPriorityColor = (priority?: string) => {
-    switch (priority) {
-      case 'high':
-        return 'bg-red-500'
-      case 'medium':
-        return 'bg-yellow-500'
-      case 'low':
-        return 'bg-blue-500'
-      default:
-        return 'bg-gray-500'
-    }
-  }
 </script>
 
 <template>
