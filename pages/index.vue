@@ -1,7 +1,6 @@
 <script setup lang="ts">
   import { useLocalStorage } from '@/composables/useLocalStorage'
   import { TASK_STATUSES } from '@/constants'
-  import { mockTasks } from '@/mocks/mockTasks'
   import type { Task, TaskStatus } from '@/types'
 
   const { saveToStorage, loadFromStorage } = useLocalStorage()
@@ -53,11 +52,11 @@
 </script>
 
 <template>
-  <div class="bg-background text-primary min-h-screen p-4 sm:p-8">
+  <div class="min-h-screen bg-background p-4 text-primary sm:p-8">
     <header class="flex items-center justify-between">
       <h1 class="text-xl font-bold sm:text-2xl">My Project</h1>
       <button
-        class="bg-card-hover hover:bg-card-active rounded px-3 py-1.5 text-sm sm:px-4 sm:py-2 sm:text-base"
+        class="rounded bg-card-hover px-3 py-1.5 text-sm hover:bg-card-active sm:px-4 sm:py-2 sm:text-base"
       >
         Create
       </button>
