@@ -1,26 +1,34 @@
-# Nuxt Minimal Starter
+# Kanban Board
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A modern, responsive Kanban board application built with Nuxt 3, Vue 3, and TypeScript. Manage your tasks efficiently with a beautiful and intuitive interface.
+
+## Features
+
+- 📱 Responsive design that works on desktop and mobile
+- 💾 Local storage persistence for tasks
+- 🎯 Drag and drop task management
+- ✨ Modern UI with Shadcn Vue components
+- 🎨 Beautiful styling with Tailwind CSS
+- 📅 Task due dates and priority management
+
+## Tech Stack
+
+- [Nuxt 3](https://nuxt.com/) - The Vue Framework
+- [Vue 3](https://vuejs.org/) - Progressive JavaScript Framework
+- [TypeScript](https://www.typescriptlang.org/) - JavaScript with syntax for types
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
 
 ## Setup
 
-Make sure to install dependencies:
+Make sure to install the dependencies:
 
 ```bash
 # npm
 npm install
 
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
+## Development
 
 Start the development server on `http://localhost:3000`:
 
@@ -28,14 +36,6 @@ Start the development server on `http://localhost:3000`:
 # npm
 npm run dev
 
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
 ## Production
@@ -44,32 +44,8 @@ Build the application for production:
 
 ```bash
 # npm
-npm run build
+npm run build && npm run preview
 
-# pnpm
-pnpm build
 
-# yarn
-yarn build
 
-# bun
-bun run build
 ```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
