@@ -56,7 +56,7 @@
     <header class="flex items-center justify-between">
       <h1 class="text-xl font-bold sm:text-2xl">My Project</h1>
       <button
-        class="rounded bg-card-hover px-3 py-1.5 text-sm hover:bg-card-active sm:px-4 sm:py-2 sm:text-base"
+        class="bg-purple hover:bg-purple-hover rounded px-3 py-1.5 text-sm transition-colors sm:px-4 sm:py-2 sm:text-base"
       >
         Create
       </button>

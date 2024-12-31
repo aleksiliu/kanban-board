@@ -24,7 +24,11 @@ export default {
         // Priority colors
         'priority-high': 'hsl(var(--color-priority-high) / <alpha-value>)',
         'priority-medium': 'hsl(var(--color-priority-medium) / <alpha-value>)',
-        'priority-low': 'hsl(var(--color-priority-low) / <alpha-value>)'
+        'priority-low': 'hsl(var(--color-priority-low) / <alpha-value>)',
+
+        // Add these new colors
+        purple: 'hsl(var(--color-purple) / <alpha-value>)',
+        'purple-hover': 'hsl(var(--color-purple-hover) / <alpha-value>)'
       }
     }
   },

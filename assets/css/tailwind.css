@@ -18,5 +18,9 @@
     --color-priority-high: 0 84% 60%;
     --color-priority-medium: 43 96% 48%;
     --color-priority-low: 217 91% 60%;
+
+    /* Add these new purple variants */
+    --color-purple: 250 60% 60%;
+    --color-purple-hover: 250 60% 50%;
   }
 }
