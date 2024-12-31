@@ -49,6 +49,10 @@
       console.warn('No task being dragged')
     }
   }
+
+  const handleStatusChange = (taskId: number, newStatus: TaskStatus) => {
+    updateTaskStatus(taskId, newStatus)
+  }
 </script>
 
 <template>
@@ -71,6 +75,7 @@
         :tasks="tasks.filter((task) => task.status === status)"
         @drag-start="handleDragStart"
         @drop="handleDrop"
+        @status-change="handleStatusChange"
       />
     </div>
 
@@ -79,6 +84,7 @@
         :tasks="backlogTasks"
         @drag-start="handleDragStart"
         @drop="handleDrop"
+        @status-change="handleStatusChange"
       />
     </div>
   </div>

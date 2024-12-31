@@ -9,6 +9,7 @@
   const emit = defineEmits<{
     'drag-start': [taskId: number]
     drop: [status: TaskStatus]
+    'status-change': [taskId: number, newStatus: TaskStatus]
   }>()
 
   const handleDragOver = (e: DragEvent) => {
@@ -29,28 +30,16 @@
       @drop="emit('drop', 'backlog')"
     >
       <template v-if="tasks.length">
-        <div
+        <TaskCard
           v-for="task in tasks"
           :key="task.id"
-          class="bg-card hover:bg-card-hover cursor-move rounded-lg p-4"
-          draggable="true"
-          @dragstart="emit('drag-start', task.id)"
-        >
-          <div class="flex items-center justify-between">
-            <h3 class="font-medium">{{ task.title }}</h3>
-            <div
-              v-if="task.dueDate"
-              class="text-secondary text-sm"
-            >
-              {{ formatDate(task.dueDate) }}
-            </div>
-          </div>
-          <p class="text-secondary mt-2 text-sm">{{ task.description }}</p>
-          <div :class="[getPriorityColor(task.priority), 'mt-3 h-1 w-2 rounded']" />
-        </div>
+          :task="task"
+          @drag-start="emit('drag-start', $event)"
+          @status-change="(taskId, status) => emit('status-change', taskId, status)"
+        />
       </template>
       <template v-else>
-        <div class="border-card-hover rounded-lg border-2 border-dashed p-8 text-center">
+        <div class="rounded-lg border-2 border-dashed border-card-hover p-8 text-center">
           <p class="text-secondary">Drag tasks here to add them to the backlog</p>
         </div>
       </template>
