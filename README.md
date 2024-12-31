@@ -4,12 +4,9 @@ A modern, responsive Kanban board application built with Nuxt 3, Vue 3, and Type
 
 ## Features
 
-- 📱 Responsive design that works on desktop and mobile
-- 💾 Local storage persistence for tasks
-- 🎯 Drag and drop task management
-- ✨ Modern UI with Shadcn Vue components
-- 🎨 Beautiful styling with Tailwind CSS
-- 📅 Task due dates and priority management
+- Responsive design that works on desktop and mobile
+- Local storage persistence for tasks
+- Drag and drop task management
 
 ## Tech Stack
 
