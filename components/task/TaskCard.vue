@@ -10,6 +10,7 @@
   const emit = defineEmits<{
     'drag-start': [taskId: number]
     'status-change': [taskId: number, newStatus: TaskStatus]
+    delete: [taskId: number]
   }>()
 
   const showStatusMenu = ref(false)
@@ -20,6 +21,11 @@
 
   const handleStatusChange = (newStatus: TaskStatus) => {
     emit('status-change', props.task.id, newStatus)
+    showStatusMenu.value = false
+  }
+
+  const handleDelete = () => {
+    emit('delete', props.task.id)
     showStatusMenu.value = false
   }
 </script>
@@ -64,6 +70,13 @@
         @click="handleStatusChange(value)"
       >
         {{ label }}
+      </button>
+      <div class="my-1 h-px bg-card-hover" />
+      <button
+        class="w-full rounded px-3 py-2 text-left text-sm text-red-500 hover:bg-card-hover"
+        @click="handleDelete"
+      >
+        Delete
       </button>
     </div>
   </div>

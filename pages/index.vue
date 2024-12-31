@@ -53,6 +53,13 @@
   const handleStatusChange = (taskId: number, newStatus: TaskStatus) => {
     updateTaskStatus(taskId, newStatus)
   }
+
+  const deleteTask = (taskId: number) => {
+    const taskIndex = tasks.value.findIndex((t) => t.id === taskId)
+    if (taskIndex !== -1) {
+      tasks.value.splice(taskIndex, 1)
+    }
+  }
 </script>
 
 <template>
@@ -76,6 +83,7 @@
         @drag-start="handleDragStart"
         @drop="handleDrop"
         @status-change="handleStatusChange"
+        @delete="deleteTask"
       />
     </div>
 
@@ -85,6 +93,7 @@
         @drag-start="handleDragStart"
         @drop="handleDrop"
         @status-change="handleStatusChange"
+        @delete="deleteTask"
       />
     </div>
   </div>

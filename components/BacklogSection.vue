@@ -10,6 +10,7 @@
     'drag-start': [taskId: number]
     drop: [status: TaskStatus]
     'status-change': [taskId: number, newStatus: TaskStatus]
+    delete: [taskId: number]
   }>()
 
   const handleDragOver = (e: DragEvent) => {
@@ -36,6 +37,7 @@
           :task="task"
           @drag-start="emit('drag-start', $event)"
           @status-change="(taskId, status) => emit('status-change', taskId, status)"
+          @delete="(taskId: number) => emit('delete', taskId)"
         />
       </template>
       <template v-else>

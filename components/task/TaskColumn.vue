@@ -13,6 +13,7 @@
     'drag-start': [taskId: number]
     drop: [status: TaskStatus]
     'status-change': [taskId: number, newStatus: TaskStatus]
+    delete: [taskId: number]
   }>()
 
   const handleDragOver = (e: DragEvent) => {
@@ -39,6 +40,7 @@
         @status-change="
           (taskId: number, status: TaskStatus) => emit('status-change', taskId, status)
         "
+        @delete="(taskId: number) => emit('delete', taskId)"
       />
     </div>
   </div>
