@@ -5,19 +5,19 @@ const STORAGE_KEY = 'kanban-tasks'
 
 export const useLocalStorage = () => {
   const initializeStorage = () => {
-    if (process.client && !localStorage.getItem(STORAGE_KEY)) {
+    if (import.meta.client && !localStorage.getItem(STORAGE_KEY)) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(mockTasks))
     }
   }
 
   const saveToStorage = (tasks: Task[]) => {
-    if (process.client) {
+    if (import.meta.client) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks))
     }
   }
 
   const loadFromStorage = (): Task[] => {
-    if (process.client) {
+    if (import.meta.client) {
       initializeStorage()
       const stored = localStorage.getItem(STORAGE_KEY)
       if (stored) {
