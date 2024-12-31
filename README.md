@@ -2,6 +2,8 @@
 
 A modern, responsive Kanban board application built with Nuxt 3, Vue 3, and TypeScript. Manage your tasks efficiently with a beautiful and intuitive drag and drop interface.
 
+**[Live Demo](https://kanban-board-eight-tau.vercel.app)**
+
 ## Features
 
 - Responsive design that works on desktop and mobile
