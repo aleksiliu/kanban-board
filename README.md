@@ -1,6 +1,6 @@
 # Kanban Board
 
-A modern, responsive Kanban board application built with Nuxt 3, Vue 3, and TypeScript. Manage your tasks efficiently with a beautiful and intuitive interface.
+A modern, responsive Kanban board application built with Nuxt 3, Vue 3, and TypeScript. Manage your tasks efficiently with a beautiful and intuitive drag and drop interface.
 
 ## Features
 
@@ -45,7 +45,5 @@ Build the application for production:
 ```bash
 # npm
 npm run build && npm run preview
-
-
 
 ```
