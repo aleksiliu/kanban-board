@@ -6,16 +6,30 @@ A modern, responsive Kanban board application built with Nuxt 3, Vue 3, and Type
 
 ## Features
 
-- Responsive design that works on desktop and mobile
+- Responsive design that works seamlessly on desktop and mobile
 - Local storage persistence for tasks
 - Drag and drop task management
+- Priority levels (Low, Medium, High) with visual indicators
+- Due date tracking for tasks
+- Backlog section for upcoming tasks
 
 ## Tech Stack
 
 - [Nuxt 3](https://nuxt.com/) - The Vue Framework
-- [Vue 3](https://vuejs.org/) - Progressive JavaScript Framework
+- [Vue 3](https://vuejs.org/) - Progressive JavaScript Framework with Composition API
 - [TypeScript](https://www.typescriptlang.org/) - JavaScript with syntax for types
 - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [VueUse](https://vueuse.org/) - Collection of Vue Composition Utilities
+
+## Project Structure
+
+```
+├── components/     # Vue components
+├── composables/    # Vue composables
+├── constants/      # Shared constants
+├── types/         # TypeScript types
+├── utils/         # Utility functions
+```
 
 ## Setup
 
@@ -24,7 +38,6 @@ Make sure to install the dependencies:
 ```bash
 # npm
 npm install
-
 ```
 
 ## Development
@@ -34,7 +47,6 @@ Start the development server on `http://localhost:3000`:
 ```bash
 # npm
 npm run dev
-
 ```
 
 ## Production
@@ -43,6 +55,12 @@ Build the application for production:
 
 ```bash
 # npm
-npm run build && npm run preview
+npm run build
+```
 
+Preview the production build:
+
+```bash
+# npm
+npm run preview
 ```
