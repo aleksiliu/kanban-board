@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import CreateTaskDialog from '@/components/task/CreateTaskDialog.vue'
   import { useLocalStorage } from '@/composables/useLocalStorage'
   import { TASK_STATUSES } from '@/constants'
   import type { Task, TaskStatus } from '@/types'
@@ -60,6 +61,16 @@
       tasks.value.splice(taskIndex, 1)
     }
   }
+
+  const showCreateDialog = ref(false)
+
+  const createTask = (taskData: Omit<Task, 'id'>) => {
+    const newTask: Task = {
+      id: Date.now(),
+      ...taskData
+    }
+    tasks.value.push(newTask)
+  }
 </script>
 
 <template>
@@ -67,7 +78,8 @@
     <header class="flex items-center justify-between">
       <h1 class="text-xl font-bold sm:text-2xl">My Project</h1>
       <button
-        class="bg-purple hover:bg-purple-hover rounded px-3 py-1.5 text-sm transition-colors sm:px-4 sm:py-2 sm:text-base"
+        class="rounded bg-purple px-3 py-1.5 text-sm transition-colors hover:bg-purple-hover sm:px-4 sm:py-2 sm:text-base"
+        @click="showCreateDialog = true"
       >
         Create
       </button>
@@ -96,5 +108,11 @@
         @delete="deleteTask"
       />
     </div>
+
+    <CreateTaskDialog
+      :is-open="showCreateDialog"
+      @close="showCreateDialog = false"
+      @create="createTask"
+    />
   </div>
 </template>
