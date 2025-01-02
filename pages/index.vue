@@ -1,79 +1,21 @@
 <script setup lang="ts">
   import CreateTaskDialog from '@/components/task/CreateTaskDialog.vue'
-  import { useLocalStorage } from '@/composables/useLocalStorage'
   import { TASK_STATUSES } from '@/constants'
-  import type { Task, TaskStatus } from '@/types'
+  import type { TaskStatus } from '@/types'
 
-  const { tasks, loadFromStorage, saveToStorage } = useLocalStorage()
-
-  onMounted(() => {
-    tasks.value = loadFromStorage()
-  })
-
-  watch(
+  const {
     tasks,
-    (newTasks) => {
-      saveToStorage(newTasks)
-    },
-    { deep: true }
-  )
+    isDragging,
+    handleDragStart,
+    handleDrop,
+    updateTaskStatus,
+    deleteTask,
+    createTask
+  } = useTaskManager()
 
-  const draggedTaskId = useState<number | null>('draggedTaskId', () => null)
-  const isDragging = useState<boolean>('isDragging', () => false)
   const showCreateDialog = useState<boolean>('showCreateDialog', () => false)
-
   const columns: typeof TASK_STATUSES = TASK_STATUSES
-
   const backlogTasks = computed(() => tasks.value.filter((task) => task.status === 'backlog'))
-
-  const updateTaskStatus = (taskId: number, newStatus: TaskStatus) => {
-    const taskIndex = tasks.value.findIndex((t) => t.id === taskId)
-    if (taskIndex !== -1) {
-      tasks.value[taskIndex] = {
-        ...tasks.value[taskIndex],
-        status: newStatus
-      }
-    }
-  }
-
-  const handleDragStart = (taskId: number) => {
-    draggedTaskId.value = taskId
-    isDragging.value = true
-  }
-
-  const handleDrop = (newStatus: TaskStatus) => {
-    if (!draggedTaskId.value) return
-
-    const taskIndex = tasks.value.findIndex((t) => t.id === draggedTaskId.value)
-    if (taskIndex !== -1) {
-      tasks.value[taskIndex] = {
-        ...tasks.value[taskIndex],
-        status: newStatus
-      }
-    }
-
-    draggedTaskId.value = null
-    isDragging.value = false
-  }
-
-  const handleStatusChange = (taskId: number, newStatus: TaskStatus) => {
-    updateTaskStatus(taskId, newStatus)
-  }
-
-  const deleteTask = (taskId: number) => {
-    const taskIndex = tasks.value.findIndex((t) => t.id === taskId)
-    if (taskIndex !== -1) {
-      tasks.value.splice(taskIndex, 1)
-    }
-  }
-
-  const createTask = (taskData: Omit<Task, 'id'>) => {
-    const newTask: Task = {
-      id: Date.now(),
-      ...taskData
-    }
-    tasks.value.push(newTask)
-  }
 </script>
 
 <template>
@@ -95,9 +37,10 @@
         :title="title"
         :status="status"
         :tasks="tasks.filter((task) => task.status === status)"
+        :is-dragging="isDragging"
         @drag-start="handleDragStart"
         @drop="handleDrop"
-        @status-change="handleStatusChange"
+        @status-change="updateTaskStatus"
         @delete="deleteTask"
       />
     </div>
@@ -105,9 +48,10 @@
     <div class="mt-4 sm:mt-8">
       <BacklogSection
         :tasks="backlogTasks"
+        :is-dragging="isDragging"
         @drag-start="handleDragStart"
         @drop="handleDrop"
-        @status-change="handleStatusChange"
+        @status-change="updateTaskStatus"
         @delete="deleteTask"
       />
     </div>
