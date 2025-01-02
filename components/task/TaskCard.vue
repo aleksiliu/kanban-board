@@ -49,35 +49,37 @@
         </div>
       </div>
 
-      <button
-        class="ml-2 block text-secondary hover:text-primary"
-        @click="showStatusMenu = !showStatusMenu"
-      >
-        <span class="sr-only">Change status</span>
-        •••
-      </button>
-    </div>
+      <div class="relative">
+        <button
+          class="ml-2 block text-secondary hover:text-primary"
+          @click="showStatusMenu = !showStatusMenu"
+        >
+          <span class="sr-only">Change status</span>
+          •••
+        </button>
 
-    <div
-      v-if="showStatusMenu"
-      class="absolute right-0 top-full z-10 mt-1 w-48 rounded-lg bg-card p-1 shadow-lg"
-    >
-      <button
-        v-for="(value, label) in statusOptions"
-        :key="value"
-        class="w-full rounded px-3 py-2 text-left text-sm text-secondary hover:bg-card-hover hover:text-primary"
-        :class="{ 'text-primary': task.status === value }"
-        @click="handleStatusChange(value)"
-      >
-        {{ label }}
-      </button>
-      <div class="my-1 h-px bg-card-hover" />
-      <button
-        class="w-full rounded px-3 py-2 text-left text-sm text-red-500 hover:bg-card-hover"
-        @click="handleDelete"
-      >
-        Delete
-      </button>
+        <div
+          v-if="showStatusMenu"
+          class="absolute right-0 z-10 mt-1 w-48 rounded-lg bg-card p-1 shadow-lg"
+        >
+          <button
+            v-for="(value, label) in statusOptions"
+            :key="value"
+            class="w-full rounded px-3 py-2 text-left text-sm text-secondary hover:bg-card-hover hover:text-primary"
+            :class="{ 'text-primary': task.status === value }"
+            @click="handleStatusChange(value)"
+          >
+            {{ label }}
+          </button>
+          <div class="my-1 h-px bg-card-hover" />
+          <button
+            class="w-full rounded px-3 py-2 text-left text-sm text-red-500 hover:bg-card-hover"
+            @click="handleDelete"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
