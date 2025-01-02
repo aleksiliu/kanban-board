@@ -24,11 +24,13 @@
   const backlogTasks = computed(() => tasks.value.filter((task) => task.status === 'backlog'))
 
   const updateTaskStatus = (taskId: number, newStatus: TaskStatus) => {
-    const task = tasks.value.find((t) => t.id === taskId)
-    if (task) {
-      console.log(`Updating task ${taskId} status from ${task.status} to ${newStatus}`)
-      task.status = newStatus
-      console.log('Updated tasks:', tasks.value)
+    const taskIndex = tasks.value.findIndex((t) => t.id === taskId)
+    if (taskIndex !== -1) {
+      tasks.value[taskIndex] = {
+        ...tasks.value[taskIndex],
+        status: newStatus
+      }
+      console.log(`Updated task ${taskId} status to ${newStatus}`)
     } else {
       console.warn(`Task ${taskId} not found`)
     }
