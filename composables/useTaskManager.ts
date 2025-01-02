@@ -1,13 +1,15 @@
-import { watch } from 'vue'
+import { onMounted, readonly, watch } from 'vue'
 
 import type { Task, TaskStatus } from '@/types'
 
 import { useLocalStorage } from './useLocalStorage'
+import { useNotification } from './useNotification'
 
 export const useTaskManager = () => {
   const { tasks, loadFromStorage, saveToStorage } = useLocalStorage()
   const draggedTaskId = useState<number | null>('draggedTaskId', () => null)
   const isDragging = useState<boolean>('isDragging', () => false)
+  const { show } = useNotification()
 
   onMounted(() => {
     tasks.value = loadFromStorage()
@@ -47,7 +49,9 @@ export const useTaskManager = () => {
   const deleteTask = (taskId: number) => {
     const taskIndex = tasks.value.findIndex((t) => t.id === taskId)
     if (taskIndex !== -1) {
+      const taskTitle = tasks.value[taskIndex].title
       tasks.value.splice(taskIndex, 1)
+      show(`Task "${taskTitle}" deleted`)
     }
   }
 
@@ -57,6 +61,7 @@ export const useTaskManager = () => {
       ...taskData
     }
     tasks.value.push(newTask)
+    show(`Task "${newTask.title}" created`)
   }
 
   return {

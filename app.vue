@@ -1,9 +1,10 @@
 <script setup lang="ts">
-  const version = 2 + 1
+  import Notification from '@/components/common/Notification.vue'
 </script>
 
 <template>
   <div>
     <NuxtPage />
+    <Notification />
   </div>
 </template>
