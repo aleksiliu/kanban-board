@@ -6,12 +6,10 @@
 
   const { tasks, loadFromStorage, saveToStorage } = useLocalStorage()
 
-  // Initialize tasks on client-side only
   onMounted(() => {
     tasks.value = loadFromStorage()
   })
 
-  // Watch for changes to save to localStorage
   watch(
     tasks,
     (newTasks) => {
