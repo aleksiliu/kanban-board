@@ -4,10 +4,14 @@
   import { TASK_STATUSES } from '@/constants'
   import type { Task, TaskStatus } from '@/types'
 
-  const { saveToStorage, loadFromStorage } = useLocalStorage()
+  const { tasks, loadFromStorage, saveToStorage } = useLocalStorage()
 
-  const tasks = ref<Task[]>(loadFromStorage())
+  // Initialize tasks on client-side only
+  onMounted(() => {
+    tasks.value = loadFromStorage()
+  })
 
+  // Watch for changes to save to localStorage
   watch(
     tasks,
     (newTasks) => {
@@ -16,8 +20,9 @@
     { deep: true }
   )
 
-  const draggedTaskId = ref<number | null>(null)
-  const isDragging = ref(false)
+  const draggedTaskId = useState<number | null>('draggedTaskId', () => null)
+  const isDragging = useState<boolean>('isDragging', () => false)
+  const showCreateDialog = useState<boolean>('showCreateDialog', () => false)
 
   const columns: typeof TASK_STATUSES = TASK_STATUSES
 
@@ -63,8 +68,6 @@
       tasks.value.splice(taskIndex, 1)
     }
   }
-
-  const showCreateDialog = ref(false)
 
   const createTask = (taskData: Omit<Task, 'id'>) => {
     const newTask: Task = {
