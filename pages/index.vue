@@ -30,27 +30,27 @@
         ...tasks.value[taskIndex],
         status: newStatus
       }
-      console.log(`Updated task ${taskId} status to ${newStatus}`)
-    } else {
-      console.warn(`Task ${taskId} not found`)
     }
   }
 
   const handleDragStart = (taskId: number) => {
-    console.log(`Started dragging task ${taskId}`)
     draggedTaskId.value = taskId
     isDragging.value = true
   }
 
   const handleDrop = (newStatus: TaskStatus) => {
-    console.log(`Dropping task into ${newStatus} column`)
-    if (draggedTaskId.value) {
-      updateTaskStatus(draggedTaskId.value, newStatus)
-      draggedTaskId.value = null
-      isDragging.value = false
-    } else {
-      console.warn('No task being dragged')
+    if (!draggedTaskId.value) return
+
+    const taskIndex = tasks.value.findIndex((t) => t.id === draggedTaskId.value)
+    if (taskIndex !== -1) {
+      tasks.value[taskIndex] = {
+        ...tasks.value[taskIndex],
+        status: newStatus
+      }
     }
+
+    draggedTaskId.value = null
+    isDragging.value = false
   }
 
   const handleStatusChange = (taskId: number, newStatus: TaskStatus) => {

@@ -28,7 +28,6 @@
     <div
       class="mt-4 space-y-2"
       @dragover="handleDragOver"
-      @drop="emit('drop', 'backlog')"
     >
       <template v-if="tasks.length">
         <TaskCard
