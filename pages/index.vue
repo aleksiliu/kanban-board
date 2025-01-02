@@ -21,7 +21,7 @@
 <template>
   <div class="min-h-screen bg-background p-4 text-primary sm:p-8">
     <header class="flex items-center justify-between">
-      <h1 class="text-xl font-bold sm:text-2xl">My Project</h1>
+      <h1 class="text-xl font-bold sm:text-2xl">Kanban Board</h1>
       <button
         class="rounded bg-purple px-3 py-1.5 text-sm transition-colors hover:bg-purple-hover sm:px-4 sm:py-2 sm:text-base"
         @click="showCreateDialog = true"
