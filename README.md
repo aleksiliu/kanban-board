@@ -20,7 +20,6 @@ A modern, responsive Kanban board application built with Nuxt 3, Vue 3, and Type
 - [Vue 3](https://vuejs.org/) - Progressive JavaScript Framework with Composition API
 - [TypeScript](https://www.typescriptlang.org/) - JavaScript with syntax for types
 - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
-- [VueUse](https://vueuse.org/) - Collection of Vue Composition Utilities
 - [Vitest](https://vitest.dev/) - Next Generation Testing Framework
 
 ## Project Structure
