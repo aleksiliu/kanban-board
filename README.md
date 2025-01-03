@@ -12,6 +12,7 @@ A modern, responsive Kanban board application built with Nuxt 3, Vue 3, and Type
 - Priority levels (Low, Medium, High) with visual indicators
 - Due date tracking for tasks
 - Backlog section for upcoming tasks
+- Testing with Vitest
 
 ## Tech Stack
 
@@ -20,6 +21,7 @@ A modern, responsive Kanban board application built with Nuxt 3, Vue 3, and Type
 - [TypeScript](https://www.typescriptlang.org/) - JavaScript with syntax for types
 - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
 - [VueUse](https://vueuse.org/) - Collection of Vue Composition Utilities
+- [Vitest](https://vitest.dev/) - Next Generation Testing Framework
 
 ## Project Structure
 
@@ -28,7 +30,7 @@ A modern, responsive Kanban board application built with Nuxt 3, Vue 3, and Type
 ├── composables/    # Vue composables
 ├── constants/      # Shared constants
 ├── types/         # TypeScript types
-├── utils/         # Utility functions
+└── utils/         # Utility functions
 ```
 
 ## Setup
@@ -47,6 +49,17 @@ Start the development server on `http://localhost:3000`:
 ```bash
 # npm
 npm run dev
+```
+
+## Testing
+
+The project uses Vitest for testing. Tests are co-located with their source files in `__tests__` directories.
+
+### Running Tests
+
+```bash
+# Run all tests
+npm run test
 ```
 
 ## Production
