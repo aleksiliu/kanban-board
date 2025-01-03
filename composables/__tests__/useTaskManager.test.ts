@@ -34,6 +34,21 @@ describe('useTaskManager', () => {
     tasks.value = []
   })
 
+  it('saves tasks to storage when modified', async () => {
+    const { tasks, createTask } = useTaskManager()
+
+    createTask({
+      title: 'Storage Test',
+      description: 'Test storage',
+      status: 'backlog',
+      priority: 'low'
+    })
+
+    // Wait for watch to trigger
+    await nextTick()
+    expect(saveToStorage).toHaveBeenCalledWith(tasks.value)
+  })
+
   it('creates a new task', () => {
     const { tasks, createTask } = useTaskManager()
 
