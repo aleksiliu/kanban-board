@@ -44,7 +44,6 @@ describe('useTaskManager', () => {
       priority: 'low'
     })
 
-    // Wait for watch to trigger
     await nextTick()
     expect(saveToStorage).toHaveBeenCalledWith(tasks.value)
   })
