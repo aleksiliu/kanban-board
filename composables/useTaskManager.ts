@@ -1,4 +1,4 @@
-import { onMounted, readonly, watch } from 'vue'
+import { readonly, watch } from 'vue'
 
 import type { Task, TaskStatus } from '@/types'
 
@@ -11,9 +11,7 @@ export const useTaskManager = () => {
   const isDragging = useState<boolean>('isDragging', () => false)
   const { show } = useNotification()
 
-  onMounted(() => {
-    tasks.value = loadFromStorage()
-  })
+  tasks.value = loadFromStorage()
 
   watch(
     tasks,

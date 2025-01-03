@@ -5,6 +5,15 @@ import { ref } from 'vue'
 const tasks = ref([])
 const saveToStorage = vi.fn()
 const notificationShow = vi.fn()
+const mockInitialTasks = [
+  {
+    id: 1,
+    title: 'Initial Task',
+    description: 'Initial Description',
+    status: 'backlog',
+    priority: 'low'
+  }
+]
 
 mockNuxtImport('useState', () => {
   return (key: string, init: () => any) => {
@@ -17,7 +26,7 @@ mockNuxtImport('useState', () => {
 mockNuxtImport('useLocalStorage', () => {
   return () => ({
     tasks,
-    loadFromStorage: () => [],
+    loadFromStorage: () => mockInitialTasks,
     saveToStorage
   })
 })
@@ -34,8 +43,14 @@ describe('useTaskManager', () => {
     tasks.value = []
   })
 
+  it('loads initial tasks on initialization', () => {
+    const { tasks } = useTaskManager()
+    expect(tasks.value).toEqual(mockInitialTasks)
+  })
+
   it('saves tasks to storage when modified', async () => {
     const { tasks, createTask } = useTaskManager()
+    const initialLength = tasks.value.length
 
     createTask({
       title: 'Storage Test',
@@ -50,6 +65,7 @@ describe('useTaskManager', () => {
 
   it('creates a new task', () => {
     const { tasks, createTask } = useTaskManager()
+    const initialLength = tasks.value.length
 
     createTask({
       title: 'New Task',
@@ -58,54 +74,34 @@ describe('useTaskManager', () => {
       priority: 'medium'
     })
 
-    expect(tasks.value).toHaveLength(1)
-    expect(tasks.value[0].title).toBe('New Task')
+    expect(tasks.value).toHaveLength(initialLength + 1)
+    expect(tasks.value[tasks.value.length - 1].title).toBe('New Task')
     expect(notificationShow).toHaveBeenCalledWith('Task "New Task" created')
   })
 
   it('deletes a task', () => {
-    const { tasks, createTask, deleteTask } = useTaskManager()
+    const { tasks, deleteTask } = useTaskManager()
+    const initialTask = tasks.value[0]
+    const initialLength = tasks.value.length
 
-    createTask({
-      title: 'Task to Delete',
-      description: 'Will be deleted',
-      status: 'backlog',
-      priority: 'low'
-    })
-
-    const taskId = tasks.value[0].id
-    deleteTask(taskId)
-    expect(tasks.value).toHaveLength(0)
-    expect(notificationShow).toHaveBeenCalledWith('Task "Task to Delete" deleted')
+    deleteTask(initialTask.id)
+    expect(tasks.value).toHaveLength(initialLength - 1)
+    expect(notificationShow).toHaveBeenCalledWith('Task "Initial Task" deleted')
   })
 
   it('updates task status', () => {
-    const { tasks, createTask, updateTaskStatus } = useTaskManager()
+    const { tasks, updateTaskStatus } = useTaskManager()
+    const initialTask = tasks.value[0]
 
-    createTask({
-      title: 'Task to Update',
-      description: 'Will update status',
-      status: 'backlog',
-      priority: 'medium'
-    })
-
-    const taskId = tasks.value[0].id
-    updateTaskStatus(taskId, 'in-progress')
+    updateTaskStatus(initialTask.id, 'in-progress')
     expect(tasks.value[0].status).toBe('in-progress')
   })
 
   it('handles drag and drop', () => {
-    const { tasks, createTask, handleDragStart, handleDrop } = useTaskManager()
+    const { tasks, handleDragStart, handleDrop } = useTaskManager()
+    const initialTask = tasks.value[0]
 
-    createTask({
-      title: 'Drag Task',
-      description: 'Will be dragged',
-      status: 'backlog',
-      priority: 'medium'
-    })
-
-    const taskId = tasks.value[0].id
-    handleDragStart(taskId)
+    handleDragStart(initialTask.id)
     handleDrop('in-progress')
     expect(tasks.value[0].status).toBe('in-progress')
   })
