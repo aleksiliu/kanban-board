@@ -8,7 +8,6 @@ import { useLocalStorage } from '../useLocalStorage'
 describe('useLocalStorage', () => {
   let storage: Record<string, string> = {}
 
-  // Mock localStorage
   beforeEach(() => {
     storage = {}
     vi.stubGlobal('localStorage', {
@@ -18,7 +17,6 @@ describe('useLocalStorage', () => {
       })
     })
 
-    // Mock import.meta.client
     vi.stubGlobal('import.meta', { client: true })
   })
 
