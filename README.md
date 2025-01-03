@@ -53,7 +53,7 @@ npm run dev
 
 ## Testing
 
-The project uses Vitest for unit and integration testing. Tests are co-located with their source files in `__tests__` directories.
+The project uses Vitest for testing. Tests are co-located with their source files in `__tests__` directories.
 
 ### Running Tests
 
