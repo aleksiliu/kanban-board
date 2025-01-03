@@ -27,7 +27,10 @@
     @dragover="handleDragOver"
     @drop="emit('drop', status)"
   >
-    <div class="mb-3 flex items-center justify-between sm:mb-4">
+    <div
+      class="flex items-center justify-between"
+      :class="tasks.length > 0 ? 'mb-3 sm:mb-4' : ''"
+    >
       <h2 class="text-sm font-semibold sm:text-base">{{ title }} {{ tasks.length }}</h2>
     </div>
     <div class="space-y-2 sm:space-y-3">
