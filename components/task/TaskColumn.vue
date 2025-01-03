@@ -27,23 +27,22 @@
     @dragover="handleDragOver"
     @drop="emit('drop', status)"
   >
-    <div
-      class="flex items-center justify-between"
-      :class="tasks.length > 0 ? 'mb-3 sm:mb-4' : ''"
-    >
+    <div class="flex items-center justify-between">
       <h2 class="text-sm font-semibold sm:text-base">{{ title }} {{ tasks.length }}</h2>
     </div>
-    <div class="space-y-2 sm:space-y-3">
-      <TaskCard
-        v-for="task in tasks"
-        :key="task.id"
-        :task="task"
-        @drag-start="(taskId: number) => emit('drag-start', taskId)"
-        @status-change="
-          (taskId: number, status: TaskStatus) => emit('status-change', taskId, status)
-        "
-        @delete="(taskId: number) => emit('delete', taskId)"
-      />
-    </div>
+    <template v-if="tasks.length > 0">
+      <div class="mt-3 space-y-2 sm:mt-4 sm:space-y-3">
+        <TaskCard
+          v-for="task in tasks"
+          :key="task.id"
+          :task="task"
+          @drag-start="(taskId: number) => emit('drag-start', taskId)"
+          @status-change="
+            (taskId: number, status: TaskStatus) => emit('status-change', taskId, status)
+          "
+          @delete="(taskId: number) => emit('delete', taskId)"
+        />
+      </div>
+    </template>
   </div>
 </template>
