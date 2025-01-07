@@ -1,4 +1,4 @@
-import { readonly, watch } from 'vue'
+import { watch } from 'vue'
 
 import type { Task, TaskStatus } from '@/types'
 
@@ -9,14 +9,18 @@ export const useTaskManager = () => {
   const { tasks, loadFromStorage, saveToStorage } = useLocalStorage()
   const draggedTaskId = useState<number | null>('draggedTaskId', () => null)
   const isDragging = useState<boolean>('isDragging', () => false)
+  const filteredTasks = useState<Task[]>('filteredTasks', () => [])
   const { show } = useNotification()
 
   tasks.value = loadFromStorage()
+  filteredTasks.value = [...tasks.value]
 
   watch(
     tasks,
     (newTasks) => {
       saveToStorage(newTasks)
+
+      filteredTasks.value = [...newTasks]
     },
     { deep: true }
   )
@@ -27,6 +31,11 @@ export const useTaskManager = () => {
       tasks.value[taskIndex] = {
         ...tasks.value[taskIndex],
         status: newStatus
+      }
+
+      const filteredIndex = filteredTasks.value.findIndex((t) => t.id === taskId)
+      if (filteredIndex !== -1) {
+        filteredTasks.value[filteredIndex] = { ...tasks.value[taskIndex] }
       }
     }
   }
@@ -62,13 +71,19 @@ export const useTaskManager = () => {
     show(`Task "${newTask.title}" created`)
   }
 
+  const updateFilters = (newFilteredTasks: Task[]) => {
+    filteredTasks.value = newFilteredTasks
+  }
+
   return {
-    tasks: readonly(tasks),
-    isDragging: readonly(isDragging),
+    tasks,
+    filteredTasks,
+    isDragging,
     handleDragStart,
     handleDrop,
     updateTaskStatus,
     deleteTask,
-    createTask
+    createTask,
+    updateFilters
   }
 }
